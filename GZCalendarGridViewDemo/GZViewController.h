@@ -10,5 +10,10 @@
 #import <GZKit/GZKit.h>
 @interface GZViewController : UIViewController<GZCalendarGridViewDataSource,GZCalendarGridViewDelegate,GZInfiniteScrollViewDelegate>
 
+@property (nonatomic, weak) IBOutlet UILabel *sectionHeightLabel;
+@property (nonatomic, weak) IBOutlet UISlider *heightSlider;
+@property (nonatomic, weak) IBOutlet GZCalendarGridView *calendarGridView;
+
+- (IBAction) heightSliderChanged:(id)sender;
 
 @end

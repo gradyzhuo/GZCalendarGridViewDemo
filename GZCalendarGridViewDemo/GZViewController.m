@@ -8,18 +8,27 @@
 
 #import "GZViewController.h"
 
-@interface GZViewController ()
+@interface GZViewController (){
+    CGFloat _heightForSection;
+}
 
 @end
 
 @implementation GZViewController
+
 +(void)initialize{
     [GZCalendarGridView initialize];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    _heightForSection = self.heightSlider.value;
+    self.sectionHeightLabel.text = [NSString stringWithFormat:@"%f",self.heightSlider.value];
+//    self.calendarGridView.calendarType = GZCalendarGridViewTypeWeek;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -32,17 +41,20 @@
     return state != GZCalendarGridViewCellStateDisable;
 }
 
+
+
 -(CGFloat)calendarView:(GZCalendarGridView *)calendarView heightInSection:(NSInteger)section{
-    return 50;
+    return _heightForSection;
 }
 
--(NSArray *)calendarView:(GZCalendarGridView *)calendarView eventsFromStartDate:(NSDate *)startDate toEndDate:(NSDate *)endDate{
-    return @[@1];
+- (void)heightSliderChanged:(id)sender{
+    
+    UISlider *heightSlider = (UISlider *)sender;
+    _heightForSection = heightSlider.value;
+    self.sectionHeightLabel.text = [NSString stringWithFormat:@"%f",self.heightSlider.value];
+    [self.calendarGridView reloadData];
+    
+    
 }
 
-
-- (IBAction)change:(id)sender {
-}
-- (IBAction)goTo:(id)sender {
-}
 @end
